@@ -1,8 +1,8 @@
 daemon off;
 # stay attached to the dyno process, run in Procfile / web
 
-pid /app/nginx.pid;
-# /app is $HOME & working directory of Heroku dyno
+pid <%= ENV['HOME'] %>/nginx.pid;
+# $HOME is /app or /workspace depending on CNB vs nonCNB flavor is & working directory of Heroku dyno
 
 error_log stderr info;
 # As documented for Nginx, but we still see error during start-up in log:
@@ -48,7 +48,7 @@ http {
 		}
 
 		## Document root
-		root /app/dist;
+		root <%= ENV['HOME'] %>/dist;
 
 		location / {
 			## Clean URLs: match on extensionless requests.
